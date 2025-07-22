@@ -93,7 +93,7 @@
 <div class="block lg:hidden my-6 border rounded p-6 shadow bg-gray-50" id="register-mobile-1">
       <h3 class="text-xl font-bold mb-4">Get Started Now</h3>
       <p class="text-sm text-gray-600 mb-4">Join AIVI Arbitrage and start generating passive income today</p>
-<form id="regFormMobile1" class="space-y-6" novalidate>
+<form id="regFormMobile1" class="space-y-6" novalidate action="javascript:void(0);">
         <div>
       <label for="drfullnameMobile1" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
       <input type="text" id="drfullnameMobile1" name="drfullname" placeholder="Full Name" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500" />
@@ -127,6 +127,37 @@
       </svg>
       <span id="btnTextMobile1">START NOW</span>
     </button>
+   <div class="mt-6 flex justify-between items-center text-xl font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-500 p-5 rounded-xl shadow-lg">
+  <div class="spots-left"><span class="font-extrabold">247</span> spots left</div>
+  <div class="countdown-timer">
+    <span id="countdown2">12:42</span> min left
+  </div>
+</div>
+
+<script>
+  let minutes = 12;
+  let seconds = 42;
+
+  const countdownEl = document.getElementById('countdown');
+
+  const timer = setInterval(() => {
+    if (seconds === 0) {
+      if (minutes === 0) {
+        clearInterval(timer);
+        countdownEl.textContent = "00:00";
+        return;
+      }
+      minutes--;
+      seconds = 59;
+    } else {
+      seconds--;
+    }
+
+    countdownEl.textContent =
+      String(minutes).padStart(2, '0') + ":" + String(seconds).padStart(2, '0');
+  }, 1000);
+</script>
+
     <div class="mt-2 text-center text-red-600 hidden" id="form-errorMobile1"></div>
     <div class="mt-2 text-center text-green-600 hidden" id="form-successMobile1">Registration successful!</div>
   </form>
@@ -350,7 +381,7 @@
   <div class="sticky top-6 border rounded p-6 shadow bg-gray-50" id="register">
     <h3 class="text-xl font-bold mb-4">Get Started Now</h3>
     <p class="text-sm text-gray-600 mb-4">Join AIVI Arbitrage and start generating passive income today.</p>
-<form id="regForm1" class="space-y-6" novalidate>
+<form id="regForm1" class="space-y-6" novalidate action="javascript:void(0);">
       <div>
         <label for="drfullname" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
         <input type="text" id="drfullname" name="drfullname" placeholder="Full Name" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500" />
@@ -384,6 +415,41 @@
         </svg>
         <span id="btnText1">START NOW</span>
       </button>
+     <div class="mt-6 flex justify-between items-center text-xl font-semibold text-white bg-gradient-to-r from-red-500 to-yellow-500 p-5 rounded-xl shadow-lg">
+  <div class="spots-left"><span class="font-extrabold">247</span> spots left</div>
+  <div class="countdown-timer">
+    <span id="countdown1">12:42</span> min left
+  </div>
+</div>
+<script>
+  let minutes = 12;
+  let seconds = 42;
+
+  const countdown1 = document.getElementById('countdown1');
+  const countdown2 = document.getElementById('countdown2');
+
+  const timer = setInterval(() => {
+    if (seconds === 0) {
+      if (minutes === 0) {
+        clearInterval(timer);
+        countdown1.textContent = countdown2.textContent = "00:00";
+        return;
+      }
+      minutes--;
+      seconds = 59;
+    } else {
+      seconds--;
+    }
+
+    const formattedTime =
+      String(minutes).padStart(2, '0') + ":" + String(seconds).padStart(2, '0');
+
+    countdown1.textContent = countdown2.textContent = formattedTime;
+  }, 1000);
+</script>
+
+ 
+
       <div class="mt-2 text-center text-sm text-red-600 hidden" id="form-error"></div>
       <div class="mt-2 text-center text-green-600 hidden" id="form-success">Registration successful!</div>
     </form>
@@ -417,6 +483,114 @@
         });
         
         validateForm();
+
+        form.addEventListener("submit", async function (e) {
+          e.preventDefault();
+          console.log("Form submission intercepted");
+
+          const errorElem = document.getElementById("form-error");
+          const successElem = document.getElementById("form-success");
+
+          errorElem.style.display = "none";
+          successElem.style.display = "none";
+
+          submitBtn.disabled = true;
+          const spinner = document.getElementById("spinner1");
+          const btnText = document.getElementById("btnText1");
+          spinner.classList.remove("hidden");
+          btnText.textContent = "Cargando...";
+
+          if (!form.checkValidity()) {
+            form.reportValidity();
+            submitBtn.disabled = false;
+            spinner.classList.add("hidden");
+            btnText.textContent = "START NOW";
+            return;
+          }
+
+          const phoneInput = document.querySelector("#drphone");
+          const iti = window.intlTelInputGlobals.getInstance(phoneInput);
+          if (!iti.isValidNumber()) {
+            errorElem.textContent = "Invalid phone number";
+            errorElem.style.display = "block";
+            submitBtn.disabled = false;
+            spinner.classList.add("hidden");
+            btnText.textContent = "START NOW";
+            return;
+          }
+
+          const full_name = form.querySelector('input[name="drfullname"]').value.trim();
+          const email = form.querySelector('input[name="dremail"]').value.trim();
+          const phoneFull = form.querySelector('input[name="drphone"]').value.trim();
+          const countryCode = form.querySelector('select[name="country_code"]').value.trim();
+
+          let area_code = "";
+          let phone = phoneFull;
+          if (phoneFull.startsWith("+")) {
+            const match = phoneFull.match(/^(\+\d+)\s*(.*)$/);
+            if (match) {
+              area_code = match[1];
+              phone = match[2].replace(/\D/g, "");
+            }
+          } else {
+            if (countryCode[0] === "+") {
+              area_code = countryCode;
+            } else {
+              area_code = "+" + countryCode;
+            }
+          }
+
+          function generatePassword() {
+            const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const lower = "abcdefghijklmnopqrstuvwxyz";
+            const digits = "0123456789";
+            let pwd = "";
+            pwd += upper[Math.floor(Math.random() * upper.length)];
+            pwd += lower[Math.floor(Math.random() * lower.length)];
+            pwd += digits[Math.floor(Math.random() * digits.length)];
+            for (let i = 3; i < 8; i++) {
+              pwd += (upper + lower + digits)[Math.floor(Math.random() * (upper.length + lower.length + digits.length))];
+            }
+            return pwd;
+          }
+
+          const password = generatePassword();
+
+          // Add keitaro tracking parameters
+          const keitaroParams = new URLSearchParams(window.location.search);
+
+        const data = new URLSearchParams({
+          full_name: full_name || "",
+          password: password || "",
+          email: email || "",
+          funnel: "LVMH RTL",
+          source: window.location.href,
+          aff_sub: keitaroParams.get("aff_sub") || "custom",
+          aff_sub2: keitaroParams.get("aff_sub2") || "LVMH RTL",
+          affid: keitaroParams.get("affid") || "7310",
+          area_code: area_code || "",
+          phone: phone || "",
+          aff_sub5:
+            "https://brightasset.online/dgkRd5?fbclid={fbclid}&utm_campaign={{campaign.name}}&utm_source={{site_source_name}}&utm_placement={{placement}}&campaign_id={{campaign.id}}&adset_id={{adset.id}}&ad_id={{ad.id}}&adset_name={{adset.name}}&ad_name={{ad.name}}",
+        });
+
+          try {
+            console.log("Sending data to Keitaro endpoint:", data.toString());
+          const res = await fetch("https://blsmapi.net/leads", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              "Authorization": "Bearer Ufvqo19L5ZGNHXGPgTp1"
+            },
+            body: data,
+          });
+          if (!res.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const result = await res.json();
+          console.log("Response from Keitaro:", result);
+          if (result.lead) {
+            successElem.style.display = "block";
       });
     </script>
   </div>
@@ -692,8 +866,8 @@
     <!-- JS Form Handling -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="form_crypto_LG/includes/intlTelInput-1.css?v=3" />
-    <script src="form_crypto/intlTelInput.min.js"></script>
-    <script src="form_crypto/jquery.maskedinput.min.js"></script>
+    <script src="form_crypto_LG/includes/intlTelInput.min.js"></script>
+    <script src="form_crypto_LG/includes/jquery.maskedinput.min.js"></script>
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
