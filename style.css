@@ -1,0 +1,177 @@
+body {
+  font-family: 'Lato', sans-serif;
+}
+.forbes-title {
+  font-family: 'Playfair Display', serif;
+}
+.article-content p {
+  margin-bottom: 1.5rem;
+  font-size: 18px;
+  line-height: 1.7;
+}
+.article-content h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: #000;
+}
+.forbes-red {
+  background-color: #D30E0E;
+}
+.forbes-red:hover {
+  background-color: #B00D0D;
+}
+.tag {
+  background-color: #F0F0F0;
+  color: #666;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 0.75rem;
+}
+.quote {
+  border-left: 4px solid #D30E0E;
+  padding-left: 1.5rem;
+  font-style: italic;
+  margin: 2rem 0;
+  color: #444;
+}
+/* New styles for image container with logo overlay */
+.image-container {
+  position: relative;
+  max-width: 100%;
+  margin: 0 auto 1rem auto;
+  text-align: center;
+}
+.image-container img.main-image {
+  width: 100%;
+  max-width: 700px;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 2;
+}
+.image-container img.logo-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.15;
+  max-width: 300px;
+  pointer-events: none;
+  z-index: 1;
+}
+.image-caption {
+  font-size: 0.875rem;
+  color: #666;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* Sticky header styles */
+header.bg-black.text-white {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background-color: black;
+}
+
+nav.bg-white.border-b.border-gray-200.text-sm.text-gray-700.px-4 {
+  position: sticky;
+  top: 56px; /* height of header */
+  z-index: 999;
+  width: 100%;
+  background-color: white;
+  border-bottom: 1px solid #e5e7eb; /* Tailwind's gray-200 */
+}
+=======
+body {
+  font-family: 'Lato', sans-serif;
+}
+.forbes-title {
+  font-family: 'Playfair Display', serif;
+}
+.article-content p {
+  margin-bottom: 1.5rem;
+  font-size: 18px;
+  line-height: 1.7;
+}
+.article-content h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: #000;
+}
+.forbes-red {
+  background-color: #D30E0E;
+}
+.forbes-red:hover {
+  background-color: #B00D0D;
+}
+.tag {
+  background-color: #F0F0F0;
+  color: #666;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 0.75rem;
+}
+.quote {
+  border-left: 4px solid #D30E0E;
+  padding-left: 1.5rem;
+  font-style: italic;
+  margin: 2rem 0;
+  color: #444;
+}
+/* New styles for image container with logo overlay */
+.image-container {
+  position: relative;
+  max-width: 100%;
+  margin: 0 auto 1rem auto;
+  text-align: center;
+}
+.image-container img.main-image {
+  width: 100%;
+  max-width: 700px;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 2;
+}
+.image-container img.logo-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.15;
+  max-width: 300px;
+  pointer-events: none;
+  z-index: 1;
+}
+.image-caption {
+  font-size: 0.875rem;
+  color: #666;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* Sticky header styles */
+header.bg-black.text-white {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background-color: black;
+}
+
+nav.bg-white.border-b.border-gray-200.text-sm.text-gray-700.px-4 {
+  position: sticky;
+  top: 56px; /* height of header */
+  z-index: 999;
+  width: 100%;
+  background-color: white;
+  border-bottom: 1px solid #e5e7eb; /* Tailwind's gray-200 */
+}
